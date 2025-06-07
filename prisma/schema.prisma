@@ -1,0 +1,288 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+model Game {
+  id                    Int       @id @default(autoincrement())
+  steamAppId            Int       @unique @map("steam_app_id")
+  name                  String
+  type                  String    @default("game")
+  requiredAge           Int       @map("required_age")
+  isFree                Boolean   @map("is_free")
+  detailedDescription   String?   @map("detailed_description")
+  aboutTheGame          String?   @map("about_the_game")
+  shortDescription      String?   @map("short_description")
+  supportedLanguages    String?   @map("supported_languages")
+  headerImage           String?   @map("header_image")
+  capsuleImage          String?   @map("capsule_image")
+  capsuleImageV5        String?   @map("capsule_image_v5")
+  website               String?
+  background            String?
+  backgroundRaw         String?   @map("background_raw")
+  releaseDate           DateTime? @map("release_date")
+  comingSoon            Boolean   @map("coming_soon")
+  
+  // System Requirements
+  pcRequirements        SystemRequirements? @relation("GamePCRequirements")
+  macRequirements       SystemRequirements? @relation("GameMacRequirements")
+  linuxRequirements     SystemRequirements? @relation("GameLinuxRequirements")
+  
+  // Platform Support
+  platforms             Platform?
+  
+  // Pricing
+  priceOverview         PriceOverview?
+  
+  // Related entities
+  developers            Developer[]
+  publishers            Publisher[]
+  categories            GameCategory[]
+  genres                GameGenre[]
+  screenshots           Screenshot[]
+  movies                Movie[]
+  achievements          Achievement[]
+  packages              Package[]
+  packageGroups         PackageGroup[]
+  contentDescriptors    ContentDescriptor?
+  ratings               Rating[]
+  supportInfo           SupportInfo?
+  
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+  
+  @@map("games")
+}
+
+model SystemRequirements {
+  id          Int    @id @default(autoincrement())
+  minimum     String?
+  recommended String?
+  
+  // Relations for different platforms
+  gamePc      Game?  @relation("GamePCRequirements", fields: [gamePcId], references: [id])
+  gamePcId    Int?   @unique @map("game_pc_id")
+  
+  gameMac     Game?  @relation("GameMacRequirements", fields: [gameMacId], references: [id])
+  gameMacId   Int?   @unique @map("game_mac_id")
+  
+  gameLinux   Game?  @relation("GameLinuxRequirements", fields: [gameLinuxId], references: [id])
+  gameLinuxId Int?   @unique @map("game_linux_id")
+  
+  @@map("system_requirements")
+}
+
+model Platform {
+  id       Int     @id @default(autoincrement())
+  windows  Boolean @default(false)
+  mac      Boolean @default(false)
+  linux    Boolean @default(false)
+  
+  game     Game    @relation(fields: [gameId], references: [id])
+  gameId   Int     @unique @map("game_id")
+  
+  @@map("platforms")
+}
+
+model PriceOverview {
+  id               Int     @id @default(autoincrement())
+  currency         String
+  initial          Int?
+  final            Int
+  discountPercent  Int     @map("discount_percent")
+  initialFormatted String? @map("initial_formatted")
+  finalFormatted   String  @map("final_formatted")
+  
+  game             Game    @relation(fields: [gameId], references: [id])
+  gameId           Int     @unique @map("game_id")
+  
+  @@map("price_overview")
+}
+
+model Developer {
+  id    Int     @id @default(autoincrement())
+  name  String  @unique
+  games Game[]
+  
+  @@map("developers")
+}
+
+model Publisher {
+  id    Int     @id @default(autoincrement())
+  name  String  @unique
+  games Game[]
+  
+  @@map("publishers")
+}
+
+model Category {
+  id          Int            @id @default(autoincrement())
+  steamId     Int            @unique @map("steam_id")
+  name        String
+  description String
+  games       GameCategory[]
+  
+  @@map("categories")
+}
+
+model GameCategory {
+  game       Game     @relation(fields: [gameId], references: [id])
+  gameId     Int      @map("game_id")
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int      @map("category_id")
+  
+  @@id([gameId, categoryId])
+  @@map("game_categories")
+}
+
+model Genre {
+  id          Int         @id @default(autoincrement())
+  steamId     String      @unique @map("steam_id")
+  name        String
+  description String
+  games       GameGenre[]
+  
+  @@map("genres")
+}
+
+model GameGenre {
+  game    Game  @relation(fields: [gameId], references: [id])
+  gameId  Int   @map("game_id")
+  genre   Genre @relation(fields: [genreId], references: [id])
+  genreId Int   @map("genre_id")
+  
+  @@id([gameId, genreId])
+  @@map("game_genres")
+}
+
+model Screenshot {
+  id            Int    @id @default(autoincrement())
+  steamId       Int    @map("steam_id")
+  pathThumbnail String @map("path_thumbnail")
+  pathFull      String @map("path_full")
+  
+  game          Game   @relation(fields: [gameId], references: [id])
+  gameId        Int    @map("game_id")
+  
+  @@map("screenshots")
+}
+
+model Movie {
+  id        Int     @id @default(autoincrement())
+  steamId   Int     @map("steam_id")
+  name      String
+  thumbnail String
+  webm480   String? @map("webm_480")
+  webmMax   String? @map("webm_max")
+  mp4480    String? @map("mp4_480")
+  mp4Max    String? @map("mp4_max")
+  highlight Boolean @default(false)
+  
+  game      Game    @relation(fields: [gameId], references: [id])
+  gameId    Int     @map("game_id")
+  
+  @@map("movies")
+}
+
+model Achievement {
+  id     Int    @id @default(autoincrement())
+  name   String
+  path   String
+  
+  game   Game   @relation(fields: [gameId], references: [id])
+  gameId Int    @map("game_id")
+  
+  @@map("achievements")
+}
+
+model Package {
+  id       Int    @id @default(autoincrement())
+  steamId  Int    @unique @map("steam_id")
+  games    Game[]
+  
+  @@map("packages")
+}
+
+model PackageGroup {
+  id                      Int                      @id @default(autoincrement())
+  name                    String
+  title                   String
+  description             String?
+  selectionText           String                   @map("selection_text")
+  saveText                String?                  @map("save_text")
+  displayType             Int                      @map("display_type")
+  isRecurringSubscription Boolean                  @map("is_recurring_subscription")
+  
+  game                    Game                     @relation(fields: [gameId], references: [id])
+  gameId                  Int                      @map("game_id")
+  subscriptions           PackageGroupSubscription[]
+  
+  @@map("package_groups")
+}
+
+model PackageGroupSubscription {
+  id                       Int          @id @default(autoincrement())
+  packageId                Int          @map("package_id")
+  percentSavingsText       String?      @map("percent_savings_text")
+  percentSavings           Int          @map("percent_savings")
+  optionText               String       @map("option_text")
+  optionDescription        String?      @map("option_description")
+  canGetFreeLicense        String       @map("can_get_free_license")
+  isFreeLicense            Boolean      @map("is_free_license")
+  priceInCentsWithDiscount Int          @map("price_in_cents_with_discount")
+  
+  packageGroup             PackageGroup @relation(fields: [packageGroupId], references: [id])
+  packageGroupId           Int          @map("package_group_id")
+  
+  @@map("package_group_subscriptions")
+}
+
+model ContentDescriptor {
+  id    Int      @id @default(autoincrement())
+  ids   Int[]
+  notes String?
+  
+  game  Game     @relation(fields: [gameId], references: [id])
+  gameId Int     @unique @map("game_id")
+  
+  @@map("content_descriptors")
+}
+
+model Rating {
+  id           Int     @id @default(autoincrement())
+  system       String  // e.g., "dejus", "steam_germany"
+  rating       String
+  descriptors  String?
+  useAgeGate   Boolean @map("use_age_gate")
+  requiredAge  String? @map("required_age")
+  banned       String?
+  
+  game         Game    @relation(fields: [gameId], references: [id])
+  gameId       Int     @map("game_id")
+  
+  @@map("ratings")
+}
+
+model SupportInfo {
+  id     Int     @id @default(autoincrement())
+  url    String?
+  email  String?
+  
+  game   Game    @relation(fields: [gameId], references: [id])
+  gameId Int     @unique @map("game_id")
+  
+  @@map("support_info")
+}
