@@ -225,4 +225,11 @@ export const STEAM_GAME_DETAILS_URL = 'https://store.steampowered.com/api/appdet
 
 // imp
 
-// https://store.steampowered.com/saleaction/ajaxgetsaledynamicappquery?cc=IN&l=english&rgExcludedContentDescriptors[]=3&rgExcludedContentDescriptors[]=4&rgExcludedContentDescriptors[]=1&clanAccountID=41316928&clanAnnouncementGID=3128313422564004283&flavor=contenthub_popular&strFacetFilter=%7B%22type%22:1,%22rgSubexpressions%22:[%7B%22type%22:0,%22rgSubexpressions%22:[%7B%22type%22:2,%22value%22:19%7D,%7B%22type%22:2,%22value%22:597%7D]%7D,%7B%22type%22:4,%22value%22:%22english%22%7D]%7D&start=0&count=5000&tabuniqueid=8&sectionuniqueid=377601&return_capsules=true&origin=https:%2F%2Fstore.steampowered.com&strContentHubType=freetoplay&strTabFilter=&bRequestFacetCounts=true
+export const STEAM_FREE_GAMES_IDS = 'https://store.steampowered.com/saleaction/ajaxgetsaledynamicappquery?cc=IN&l=english&rgExcludedContentDescriptors[]=3&rgExcludedContentDescriptors[]=4&rgExcludedContentDescriptors[]=1&clanAccountID=41316928&clanAnnouncementGID=3128313422564004283&flavor=contenthub_popular&strFacetFilter=%7B%22type%22:1,%22rgSubexpressions%22:[%7B%22type%22https://store.steampowered.com/saleaction/ajaxgetsaledynamicappquery?cc=IN&l=english&rgExcludedContentDescriptors[]=3&rgExcludedContentDescriptors[]=4&rgExcludedContentDescriptors[]=1&clanAccountID=41316928&clanAnnouncementGID=3128313422564004283&flavor=contenthub_popular&strFacetFilter=%7B%22type%22:1,%22rgSubexpressions%22:[%7B%22type%22:0,%22rgSubexpressions%22:[%7B%22type%22:2,%22value%22:19%7D,%7B%22type%22:2,%22value%22:597%7D]%7D,%7B%22type%22:4,%22value%22:%22english%22%7D]%7D&start=0&count=5000&tabuniqueid=8&sectionuniqueid=377601&return_capsules=true&origin=https:%2F%2Fstore.steampowered.com&strContentHubType=freetoplay&strTabFilter=&bRequestFacetCounts=true:0,%22rgSubexpressions%22:[%7B%22type%22:2,%22value%22:19%7D,%7B%22type%22:2,%22value%22:597%7D]%7D,%7B%22type%22:4,%22value%22:%22english%22%7D]%7D&start=0&count=5000&tabuniqueid=8&sectionuniqueid=377601&return_capsules=true&origin=https:%2F%2Fstore.steampowered.com&strContentHubType=freetoplay&strTabFilter=&bRequestFacetCounts=true'
+
+
+
+
+
+
+

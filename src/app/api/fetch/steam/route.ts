@@ -38,7 +38,7 @@ export async function insertIntoFreeGames(id:number) {
             data: data2,
         });
 
-        console.log(freeGames);
+        // console.log(freeGames);
         return freeGames;
     }
 

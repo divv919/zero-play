@@ -301,3 +301,9 @@ model freeGames {
   @@map("free_games")
 }
 
+model steamFreeGamesIds {
+  id Int @id @default(autoincrement())
+  gameIds Int[]
+  @@map("steam_free_games_ids")
+}
+
