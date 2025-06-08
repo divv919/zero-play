@@ -181,7 +181,7 @@ export async function GET(
       }
     };
 
-    return Response.json(transformedGame);
+    return Response.json(game);
   } catch (error) {
     console.error('Error fetching game:', error);
     return Response.json({ message: 'Internal server error' }, { status: 500 });

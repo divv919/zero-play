@@ -286,3 +286,18 @@ model SupportInfo {
   
   @@map("support_info")
 }
+
+
+model freeGames {
+  source String @map("source")
+  id Int @id @default(autoincrement())
+  name String
+  slug String @unique @map("slug")
+  description String @map("short_description")
+  imageTall String @map("image_tall")
+  imageWide String @map("image_wide")
+  releaseDate String?  @map("release_date") 
+
+  @@map("free_games")
+}
+

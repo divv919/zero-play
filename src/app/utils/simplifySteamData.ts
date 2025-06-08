@@ -1,43 +1,17 @@
-export const simplifySteamData = (data: any) => {
-    const {
-        type,
-        // name,
-        // steam_appid,
-        // is_free,
-        required_age,
-        dlc,
-        detailed_description,
-        // short_description,
-        about_the_game,
-        supported_languages,
-        website,
-        // header_image,
-        // capsule_image,
-        capsule_imagev5,
-        pc_requirements,
-        mac_requirements,
-        linux_requirements,
-        developers,
-        publishers,
-        packages,
-        package_groups,
-        platforms,
-        categories,
-        genres,
-        screenshots,
-        movies,
-        recommendations,
-        achievements,
-        background_raw,
-        ratings,
-        // release_date,
-        support_info,
-        background,
-        content_descriptors,
-        ...data1
-    } = data;
+export const simplifySteamData = async (data: any) => {
+   
 
-    return data1;
+    const data2 = {
+        source: "steam",
+        name: data.name,
+        slug: data.steam_appid?.toString(),
+        description: data.short_description,
+        imageTall: data.header_image,
+        imageWide: data.capsule_image,
+        releaseDate: data.release_date?.date,
+    }
+
+    return data2;
 };
 
 const data = {
@@ -429,4 +403,4 @@ const data = {
     },
 };
 
-console.log(simplifySteamData(data["730"].data));
+// console.log(simplifySteamData(data["730"].data));

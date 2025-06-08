@@ -138,8 +138,8 @@
 
 
 
-const STEAM_ALL_GAME_LIST_URL = 'https://api.steampowered.com/ISteamApps/GetAppList/v2';
-const STEAM_GAME_DETAILS_URL = 'https://store.steampowered.com/api/appdetails?appids=';
+export const STEAM_ALL_GAME_LIST_URL = 'https://api.steampowered.com/ISteamApps/GetAppList/v2';
+export const STEAM_GAME_DETAILS_URL = 'https://store.steampowered.com/api/appdetails?appids=';
 
 // https://store.steampowered.com/saleaction/ajaxgetsaledynamicappquery?cc=IN&l=english&rgExcludedContentDescriptors[]=3&rgExcludedContentDescriptors[]=4&rgExcludedContentDescriptors[]=1&clanAccountID=41316928&clanAnnouncementGID=3128313422564004283&flavor=contenthub_popular&strFacetFilter=&start=0&count=500000&tabuniqueid=8&sectionuniqueid=377601&return_capsules=true&origin=https:%2F%2Fstore.steampowered.com&strContentHubType=freetoplay&strTabFilter=&bRequestFacetCounts=true
 
