@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model freeGames {
+  
+  id              Int      @id @default(autoincrement()) 
+  game_id          Int   @map("game_id") @unique
+  title           String   @map("title")
+  thumbnail       String   @map("thumbnail")
+  worth           String   @map("worth")
+  image           String   @map("image")
+  description     String   @map("description")
+  instructions    String   @map("instructions")
+  open_giveaway_url String   @map("open_giveaway_url")
+  published_date   String @map("published_date")
+  type            String   @map("type")
+  platforms        String   @map("platform")
+  end_date         String @map("end_date")
+  users           Int   @map("users")
+  status          String   @map("status")
+
+  @@map("free_games")
+}
