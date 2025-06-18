@@ -1,5 +1,6 @@
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
     return (
@@ -81,9 +82,11 @@ function GameCards({label}: {label: string}) {
                 </div>
             </div>
             <div className="flex flex-row gap-9 mt-6">
+                <Link href="/game">
                 <div className="bg-gradient-to-b from-[#6F6992] to-[#2B0B64] p-[1px] rounded-lg ">
                     <div className="bg-surface h-[225px] w-[290px] rounded-lg"></div>
                 </div>
+                </Link>
                 <div className="bg-gradient-to-b from-[#6F6992] to-[#2B0B64] p-[1px] rounded-lg ">
                     <div className="bg-surface h-[225px] w-[290px] rounded-lg"></div>
                 </div>
